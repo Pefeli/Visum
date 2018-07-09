@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Visum.Views.HomePage"
+    BindingContext="{Binding Main, Source={StaticResource Locator}}"
+    Title="Visum">
+    <ContentPage.Content>
+        <ScrollView
+            BindingContext="{Binding Home}"
+            Padding="10">
+            <StackLayout>
+
+                <Frame
+                    Padding="-5, 5, 0, 5">
+                    <SearchBar
+                        HeightRequest="40"
+                        Placeholder="¿Qué estás buscando?"
+                        SearchCommand="{Binding SearchCommand}"
+                        Text="{Binding Filter, Mode=TwoWay}"
+                        VerticalOptions="FillAndExpand"
+                        HorizontalOptions="FillAndExpand">
+                    </SearchBar>
+                </Frame>
+
+                <StackLayout
+                    IsVisible="{Binding IsShowingFilters}">
+                    <StackLayout
+                        Margin="5, 10, 5, 5"
+                        Orientation="Horizontal">
+                        <Label
+                            FontAttributes="Bold"
+                            HorizontalOptions="StartAndExpand"
+                            Text="Distancia">
+                        </Label>
+                        <Label
+                            FontAttributes="Bold"
+                            HorizontalOptions="EndAndExpand"
+                            Text="{Binding DistanceFilter, StringFormat='{0:N0} km'}">
+                        </Label>
+                    </StackLayout>
+
+                    <StackLayout
+                        Margin="5, 0"
+                        Orientation="Horizontal">
+                        <Image
+                            HorizontalOptions="Start"
+                            VerticalOptions="Center"
+                            Scale="0.6"
+                            Source="marker.png">
+                        </Image>
+                        <Slider
+                            HorizontalOptions="FillAndExpand"
+                            Maximum="500"
+                            Minimum="5"
+                            Value="{Binding DistanceFilter, Mode=TwoWay}">
+                        </Slider>
+                        <Image
+                            HorizontalOptions="End"
+                            VerticalOptions="Center"
+                            Source="marker.png">
+                        </Image>
+                    </StackLayout>
+
+                    <BoxView
+                        Color="Gray"
+                        HeightRequest="1"
+                        HorizontalOptions="Fill"
+                        VerticalOptions="Center">
+                    </BoxView>
+
+                    <Label
+                        FontAttributes="Bold"
+                        Margin="5, 0"
+                        Text="Rango de Precios">
+                    </Label>
+
+                    <StackLayout
+                        Margin="5, 0"
+                        Orientation="Horizontal">
+                        <Image
+                            HorizontalOptions="Start"
+                            VerticalOptions="Center"
+                            Scale="0.6"
+                            Source="money.png">
+                        </Image>
+                        <Entry
+                            HorizontalOptions="FillAndExpand"
+                            Keyboard="Numeric"
+                            MaxLength="9"
+                            Placeholder="Mínimo"
+                            Text="{Binding PriceFilterMin, Mode=TwoWay}">
+                        </Entry>
+                        <Entry
+                            HorizontalOptions="FillAndExpand"
+                            Keyboard="Numeric"
+                            MaxLength="9"
+                            Placeholder="Máximo"
+                            Text="{Binding PriceFilterMax, Mode=TwoWay}">
+                        </Entry>
+                        <Image
+                            HorizontalOptions="End"
+                            VerticalOptions="Center"
+                            Source="money.png">
+                        </Image>
+                    </StackLayout>
+
+                    <BoxView
+                        Color="Gray"
+                        HeightRequest="1"
+                        HorizontalOptions="Fill"
+                        VerticalOptions="Center">
+                    </BoxView>
+                </StackLayout>
+
+                <Grid
+                    Margin="0, 10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition
+                            Width="*"></ColumnDefinition>
+                        <ColumnDefinition
+                            Width="Auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Button
+                        Grid.Column="0"
+                        BackgroundColor="#5cb85c"
+                        Command="{Binding SearchCommand}"
+                        HeightRequest="40"
+                        Text="Buscar"
+                        TextColor="White">
+                    </Button>
+
+                    <Button
+                        Grid.Column="1"
+                        BackgroundColor="White"
+                        BorderColor="#5cb85c"
+                        BorderWidth="1"
+                        Command="{Binding ShowFiltersCommand}"
+                        HeightRequest="40"
+                        Image="{Binding ImageFilters}"
+                        TextColor="White">
+                    </Button>
+                </Grid>
+
+                <BoxView
+                    Color="LightGray"
+                    HeightRequest="1"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Center">
+                </BoxView>
+
+                <Grid
+                    Margin="0, 10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition
+                            Width="*"></ColumnDefinition>
+                        <ColumnDefinition
+                            Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Frame
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        Grid.ColumnSpan="2">
+                        <Label
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            Text="Publicidad">
+                        </Label>
+                    </Frame>
+
+                    <Frame
+                        Grid.Column="0"
+                        Grid.Row="1"
+                        Grid.ColumnSpan="2">
+                        <Label
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            Text="Publicidad">
+                        </Label>
+                    </Frame>
+
+                    <Frame
+                        Grid.Column="0"
+                        Grid.Row="2"
+                        Grid.ColumnSpan="2">
+                        <Label
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            Text="Publicidad">
+                        </Label>
+                    </Frame>
+
+                    <Frame
+                        Grid.Column="0"
+                        Grid.Row="3">
+                        <Label
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            Text="Publicidad">
+                        </Label>
+                    </Frame>
+
+                    <Frame
+                        Grid.Column="1"
+                        Grid.Row="3">
+                        <Label
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            Text="Publicidad">
+                        </Label>
+                    </Frame>
+
+                    <Frame
+                        Grid.Column="0"
+                        Grid.Row="4">
+                        <Label
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            Text="Publicidad">
+                        </Label>
+                    </Frame>
+
+                    <Frame
+                        Grid.Column="1"
+                        Grid.Row="4">
+                        <Label
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            Text="Publicidad">
+                        </Label>
+                    </Frame>
+                </Grid>
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
