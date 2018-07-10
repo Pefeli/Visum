@@ -3,6 +3,7 @@
     using GalaSoft.MvvmLight.Command;
     using Models;
     using Services;
+    using System;
     using System.Windows.Input;
     using Views;
     using Xamarin.Forms;
@@ -165,6 +166,21 @@
 
             MainViewModel.GetInstance().Home = new HomeViewModel();
             Application.Current.MainPage = new NavigationPage(new HomePage());
+        }
+
+        public ICommand RegistrationCommand
+        {
+            get
+            {
+                return new RelayCommand(Registration);
+            }
+        }
+
+        private async void Registration()
+        {
+            MainViewModel.GetInstance().Registration = new RegistrationViewModel();
+            await Application.Current.MainPage.Navigation.PushAsync(new RegistrationPage());
+
         }
         #endregion
 

@@ -8,7 +8,14 @@
             get;
             set;
         }
+
         public HomeViewModel Home
+        {
+            get;
+            set;
+        }
+
+        public RegistrationViewModel Registration
         {
             get;
             set;

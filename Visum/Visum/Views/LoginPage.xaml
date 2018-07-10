@@ -3,7 +3,8 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="Visum.Views.LoginPage"
-    BindingContext="{Binding Main, Source={StaticResource Locator}}">
+    BindingContext="{Binding Main, Source={StaticResource Locator}}"
+    NavigationPage.HasNavigationBar="False">
     <ContentPage.Content>
         <ScrollView
             BindingContext="{Binding Login}">
@@ -78,14 +79,15 @@
                 <Button
                     BackgroundColor="#5cb85c"
                     Command="{Binding LoginCommand}"
-                    IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                    IsEnabled="{Binding IsEnabled}"
                     Text="Ingresar"
                     TextColor="White">
                 </Button>
 
                 <Button
                     BackgroundColor="#5bc0de"
-                    IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                    Command="{Binding RegistrationCommand}"
+                    IsEnabled="{Binding IsEnabled}"
                     Text="Registrarme"
                     TextColor="White">
                 </Button>
