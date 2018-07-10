@@ -160,8 +160,8 @@
                     </Grid.ColumnDefinitions>
 
                     <Frame
-                        Grid.Column="0"
                         Grid.Row="0"
+                        Grid.Column="0"
                         Grid.ColumnSpan="2">
                         <Label
                             VerticalOptions="Center"
@@ -171,8 +171,8 @@
                     </Frame>
 
                     <Frame
-                        Grid.Column="0"
                         Grid.Row="1"
+                        Grid.Column="0"
                         Grid.ColumnSpan="2">
                         <Label
                             VerticalOptions="Center"
@@ -182,8 +182,8 @@
                     </Frame>
 
                     <Frame
-                        Grid.Column="0"
                         Grid.Row="2"
+                        Grid.Column="0"
                         Grid.ColumnSpan="2">
                         <Label
                             VerticalOptions="Center"
@@ -193,8 +193,8 @@
                     </Frame>
 
                     <Frame
-                        Grid.Column="0"
-                        Grid.Row="3">
+                        Grid.Row="3"
+                        Grid.Column="0">
                         <Label
                             VerticalOptions="Center"
                             HorizontalOptions="Center"
@@ -203,8 +203,8 @@
                     </Frame>
 
                     <Frame
-                        Grid.Column="1"
-                        Grid.Row="3">
+                        Grid.Row="3"
+                        Grid.Column="1">
                         <Label
                             VerticalOptions="Center"
                             HorizontalOptions="Center"
@@ -213,8 +213,8 @@
                     </Frame>
 
                     <Frame
-                        Grid.Column="0"
-                        Grid.Row="4">
+                        Grid.Row="4"
+                        Grid.Column="0">
                         <Label
                             VerticalOptions="Center"
                             HorizontalOptions="Center"
@@ -223,8 +223,8 @@
                     </Frame>
 
                     <Frame
-                        Grid.Column="1"
-                        Grid.Row="4">
+                        Grid.Row="4"
+                        Grid.Column="1">
                         <Label
                             VerticalOptions="Center"
                             HorizontalOptions="Center"
