@@ -2,7 +2,7 @@
 {
     using Newtonsoft.Json;
 
-    public class LoginAccess
+    public class LoginRequest
     {
         [JsonProperty(PropertyName = "correo")]
         public string Email { get; set; }

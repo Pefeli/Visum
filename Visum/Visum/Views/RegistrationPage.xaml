@@ -2,6 +2,7 @@
 <ContentPage 
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Visum.Validations"
     x:Class="Visum.Views.RegistrationPage"
     BindingContext="{Binding Main, Source={StaticResource Locator}}"
     Title="Registro">
@@ -59,6 +60,7 @@
                         VerticalOptions="Center">
                     </BoxView>
                     <Label
+                        FontAttributes="Bold"
                         HorizontalOptions="Center"
                         Text="  Ó  "
                         VerticalOptions="Center">
@@ -72,7 +74,8 @@
                 </StackLayout>
 
                 <Grid
-                    Margin="10, 0, 10, 20">
+                    Margin="10, 0, 10, 20"
+                    RowSpacing="-5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition
                             Width="Auto"></ColumnDefinition>
@@ -85,12 +88,14 @@
                         Grid.Column="0"
                         HorizontalOptions="Center"
                         VerticalOptions="Center"
-                        Source="email.png">
+                        Scale="0.7"
+                        Source="person.png">
                     </Image>
                     <Entry
                         Grid.Row="0"
                         Grid.Column="1"
-                        Placeholder="Nombres">
+                        Placeholder="Nombres"
+                        Text="{Binding Name}">
                     </Entry>
 
                     <Image
@@ -98,12 +103,14 @@
                         Grid.Column="0"
                         HorizontalOptions="Center"
                         VerticalOptions="Center"
-                        Source="email.png">
+                        Scale="0.7"
+                        Source="person_outline.png">
                     </Image>
                     <Entry
                         Grid.Row="1"
                         Grid.Column="1"
-                        Placeholder="Apellidos">
+                        Placeholder="Apellidos"
+                        Text="{Binding LastName}">
                     </Entry>
 
                     <Image
@@ -111,27 +118,39 @@
                         Grid.Column="0"
                         HorizontalOptions="Center"
                         VerticalOptions="Center"
+                        Scale="0.7"
                         Source="email.png">
                     </Image>
                     <Entry
                         Grid.Row="2"
                         Grid.Column="1"
                         Keyboard="Email"
-                        Placeholder="Correo Electrónico">
+                        Placeholder="Correo Electrónico"
+                        Text="{Binding Email}">
+                        <Entry.Behaviors>
+                            <local:EmailValidator x:Name="emailValidator"></local:EmailValidator>
+                        </Entry.Behaviors>
                     </Entry>
+                    <Label
+                        Text="Email no válido"
+                        IsVisible="{Binding Source={x:Reference emailValidator},
+	                                        Path=IsInvalid}">
+                    </Label>
                     
                     <Image
                         Grid.Row="3"
                         Grid.Column="0"
                         HorizontalOptions="Center"
                         VerticalOptions="Center"
-                        Source="email.png">
+                        Scale="0.7"
+                        Source="phone.png">
                     </Image>
                     <Entry
                         Grid.Row="3"
                         Grid.Column="1"
                         Keyboard="Telephone"
-                        Placeholder="Celular">
+                        Placeholder="Celular"
+                        Text="{Binding CellPhone}">
                     </Entry>
 
                     <Image
@@ -139,39 +158,53 @@
                         Grid.Column="0"
                         HorizontalOptions="Center"
                         VerticalOptions="Center"
-                        Source="email.png">
+                        Scale="0.7"
+                        Source="calendar.png">
                     </Image>
-                    <Entry
+                    <DatePicker 
                         Grid.Row="4"
                         Grid.Column="1"
-                        Placeholder="Fecha de Nacimiento">
-                    </Entry>
+                        Date="{Binding Birthdate, Mode=OneWay}"
+                        MinimumDate="{Binding MinBirthdate}"
+                        MaximumDate="{Binding MaxBirthdate}">
+                        <DatePicker.Format>MMM/dd/yyyy</DatePicker.Format>
+                    </DatePicker>
 
                     <Image
                         Grid.Row="5"
                         Grid.Column="0"
                         HorizontalOptions="Center"
                         VerticalOptions="Center"
-                        Source="email.png">
+                        Scale="0.7"
+                        Source="gender.png">
                     </Image>
-                    <Entry
+                    <Picker
                         Grid.Row="5"
                         Grid.Column="1"
-                        Placeholder="Género">
-                    </Entry>
+                        SelectedIndex="{Binding Gender, Mode=OneWayToSource}"
+                        Title="Género"
+                        x:Name="GenderPicker">
+                        <Picker.Items>
+                            <x:String>Femenino</x:String>
+                            <x:String>Masculino</x:String>
+                            <x:String>Otro</x:String>
+                        </Picker.Items>
+                    </Picker>
 
                     <Image
                         Grid.Row="6"
                         Grid.Column="0"
                         HorizontalOptions="Center"
                         VerticalOptions="Center"
+                        Scale="0.7"
                         Source="lock.png">
                     </Image>
                     <Entry
                         Grid.Row="6"
                         Grid.Column="1"
                         IsPassword="True"
-                        Placeholder="Contraseña">
+                        Placeholder="Contraseña"
+                        Text="{Binding Password, Mode=TwoWay}">
                     </Entry>
 
                     <Image
@@ -179,18 +212,21 @@
                         Grid.Column="0"
                         HorizontalOptions="Center"
                         VerticalOptions="Center"
+                        Scale="0.7"
                         Source="lock.png">
                     </Image>
                     <Entry
                         Grid.Row="7"
                         Grid.Column="1"
                         IsPassword="True"
-                        Placeholder="Confirmar Contraseña">
+                        Placeholder="Confirmar Contraseña"
+                        Text="{Binding ConfirmPassword, Mode=TwoWay}">
                     </Entry>
                 </Grid>
 
                 <Button
                     BackgroundColor="#5cb85c"
+                    Command="{Binding RegisterCommand}"
                     Text="Registrarme"
                     TextColor="White">
                 </Button>

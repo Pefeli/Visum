@@ -1,9 +1,9 @@
 ﻿namespace Visum.ViewModels
 {
     using GalaSoft.MvvmLight.Command;
+    using Interfaces;
     using Models;
     using Services;
-    using System;
     using System.Windows.Input;
     using Views;
     using Xamarin.Forms;
@@ -16,8 +16,6 @@
 
         #region Attributes
         private string password;
-        private bool isEnabled;
-        private bool isRunning;
         #endregion
 
         #region Properties
@@ -38,18 +36,6 @@
             get;
             set;
         }
-
-        public bool IsEnabled
-        {
-            get { return this.isEnabled; }
-            set { SetValue(ref this.isEnabled, value); }
-        }
-
-        public bool IsRunning
-        {
-            get { return this.isRunning; }
-            set { SetValue(ref this.isRunning, value); }
-        }
         #endregion
 
         #region Constructors
@@ -58,7 +44,6 @@
             this.apiService = new ApiService();
 
             this.IsRememberme = true;
-            this.IsEnabled = true;
 
             this.Email = "anfelipeloal@gmail.com";
             this.Password = "andres1";
@@ -96,28 +81,28 @@
                 return;
             }
 
-            this.IsRunning = true;
-            this.IsEnabled = false;
-
-            LoginAccess LoginAccess = new LoginAccess();
-
-            LoginAccess.Email = this.Email;
-            LoginAccess.Password = this.Password;
+            DependencyService.Get<ILoadingPageIndicator>().InitLoadingPage();
+            DependencyService.Get<ILoadingPageIndicator>().ShowLoadingPage();
 
             var connection = await this.apiService.CheckConnection();
 
             if (!connection.IsSuccess)
             {
+                DependencyService.Get<ILoadingPageIndicator>().HideLoadingPage();
+
                 await Application.Current.MainPage.DisplayAlert(
                     "Error",
                     connection.Message,
                     "Aceptar");
 
-                this.IsRunning = false;
-                this.IsEnabled = true;
-
                 return;
             }
+
+            LoginRequest LoginAccess = new LoginRequest
+            {
+                Email = this.Email,
+                Password = this.Password
+            };
 
             var response = await this.apiService.Login<LoginResponse>(
                 "https://pacific-taiga-76447.herokuapp.com",
@@ -125,8 +110,7 @@
                 "/login",
                 LoginAccess);
 
-            this.IsRunning = false;
-            this.IsEnabled = true;
+            DependencyService.Get<ILoadingPageIndicator>().HideLoadingPage();
 
             if (!response.IsSuccess)
             {
@@ -166,6 +150,8 @@
 
             MainViewModel.GetInstance().Home = new HomeViewModel();
             Application.Current.MainPage = new NavigationPage(new HomePage());
+
+            DependencyService.Get<ILoadingPageIndicator>().HideLoadingPage();
         }
 
         public ICommand RegistrationCommand

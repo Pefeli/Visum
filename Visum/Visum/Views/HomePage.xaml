@@ -14,7 +14,7 @@
                 <Frame
                     Padding="-5, 5, 0, 5">
                     <SearchBar
-                        HeightRequest="40"
+                        HeightRequest="42"
                         Placeholder="¿Qué estás buscando?"
                         SearchCommand="{Binding SearchCommand}"
                         Text="{Binding Filter, Mode=TwoWay}"

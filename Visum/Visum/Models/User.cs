@@ -28,15 +28,15 @@ namespace Visum.Models
         public string Email { get; set; }
 
         [JsonProperty(PropertyName = "fechaNacimiento")]
-        public int Birthdate { get; set; }
+        public string Birthdate { get; set; }
 
         [JsonProperty(PropertyName = "genero")]
         public string Gender { get; set; }
 
         [JsonProperty(PropertyName = "celular")]
-        public string Cellphone { get; set; }
+        public string CellPhone { get; set; }
 
         [JsonProperty(PropertyName = "fechaRegistro")]
-        public int RegistrationDate { get; set; }
+        public string RegistrationDate { get; set; }
     }
 }

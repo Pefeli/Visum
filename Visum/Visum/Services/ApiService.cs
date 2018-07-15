@@ -41,7 +41,7 @@
             };
         }
 
-        public async Task<Response> Login<T>(string urlBase, string servicePrefix, string controller, LoginAccess data)
+        public async Task<Response> Login<T>(string urlBase, string servicePrefix, string controller, LoginRequest data)
         {
             try
             {

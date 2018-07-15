@@ -79,7 +79,6 @@
                 <Button
                     BackgroundColor="#5cb85c"
                     Command="{Binding LoginCommand}"
-                    IsEnabled="{Binding IsEnabled}"
                     Text="Ingresar"
                     TextColor="White">
                 </Button>
@@ -87,7 +86,6 @@
                 <Button
                     BackgroundColor="#5bc0de"
                     Command="{Binding RegistrationCommand}"
-                    IsEnabled="{Binding IsEnabled}"
                     Text="Registrarme"
                     TextColor="White">
                 </Button>
