@@ -1,6 +1,7 @@
 ﻿namespace Visum.ViewModels
 {
     using GalaSoft.MvvmLight.Command;
+    using Helpers;
     using Interfaces;
     using Models;
     using Services;
@@ -148,10 +149,15 @@
                 return;
             }
 
-            MainViewModel.GetInstance().Home = new HomeViewModel();
-            Application.Current.MainPage = new NavigationPage(new HomePage());
+            string Token = loginResponse.User.Tokens[loginResponse.User.Tokens.Count - 1].Value;
 
-            DependencyService.Get<ILoadingPageIndicator>().HideLoadingPage();
+            MainViewModel.GetInstance().Token = Token;
+
+            if (this.IsRememberme)
+                Settings.Token = Token;
+
+            MainViewModel.GetInstance().Home = new HomeViewModel();
+            Application.Current.MainPage = new MasterPage();
         }
 
         public ICommand RegistrationCommand

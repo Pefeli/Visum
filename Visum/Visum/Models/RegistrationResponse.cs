@@ -2,7 +2,7 @@
 {
     using Newtonsoft.Json;
 
-    public class LoginResponse
+    public class RegistrationResponse
     {
         [JsonProperty(PropertyName = "completada")]
         public bool Complete { get; set; }

@@ -3,6 +3,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Visum.Validations"
+    xmlns:PQ="clr-namespace:PQXamarin.Controls;assembly=PQXamarin"
     x:Class="Visum.Views.RegistrationPage"
     BindingContext="{Binding Main, Source={StaticResource Locator}}"
     Title="Registro">
@@ -83,6 +84,24 @@
                             Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
                     <Image
                         Grid.Row="0"
                         Grid.Column="0"
@@ -91,70 +110,98 @@
                         Scale="0.7"
                         Source="person.png">
                     </Image>
-                    <Entry
+                    <PQ:PQEntry
                         Grid.Row="0"
                         Grid.Column="1"
                         Placeholder="Nombres"
-                        Text="{Binding Name}">
-                    </Entry>
+                        Text="{Binding Name}"
+                        x:Name="Name">
+                    </PQ:PQEntry>
+                    <Label 
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        TextColor="Red" 
+                        FontSize="Micro" 
+                        Text="{Binding Source={x:Reference Name}, Path=ErrorMessage}"
+                        IsVisible="{Binding Source={x:Reference Name}, Path=ShowError}">
+                    </Label>
 
                     <Image
-                        Grid.Row="1"
+                        Grid.Row="2"
                         Grid.Column="0"
                         HorizontalOptions="Center"
                         VerticalOptions="Center"
                         Scale="0.7"
                         Source="person_outline.png">
                     </Image>
-                    <Entry
-                        Grid.Row="1"
+                    <PQ:PQEntry
+                        Grid.Row="2"
                         Grid.Column="1"
                         Placeholder="Apellidos"
-                        Text="{Binding LastName}">
-                    </Entry>
+                        Text="{Binding LastName}"
+                        x:Name="LastName">
+                    </PQ:PQEntry>
+                    <Label 
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        TextColor="Red" 
+                        FontSize="Micro" 
+                        Text="{Binding Source={x:Reference LastName}, Path=ErrorMessage}"
+                        IsVisible="{Binding Source={x:Reference LastName}, Path=ShowError}">
+                    </Label>
 
                     <Image
-                        Grid.Row="2"
+                        Grid.Row="4"
                         Grid.Column="0"
                         HorizontalOptions="Center"
                         VerticalOptions="Center"
                         Scale="0.7"
                         Source="email.png">
                     </Image>
-                    <Entry
-                        Grid.Row="2"
+                    <PQ:PQEntry
+                        Grid.Row="4"
                         Grid.Column="1"
                         Keyboard="Email"
                         Placeholder="Correo Electrónico"
-                        Text="{Binding Email}">
-                        <Entry.Behaviors>
-                            <local:EmailValidator x:Name="emailValidator"></local:EmailValidator>
-                        </Entry.Behaviors>
-                    </Entry>
-                    <Label
-                        Text="Email no válido"
-                        IsVisible="{Binding Source={x:Reference emailValidator},
-	                                        Path=IsInvalid}">
+                        Text="{Binding Email}"
+                        x:Name="Email">
+                    </PQ:PQEntry>
+                    <Label 
+                         Grid.Row="5"
+                        Grid.Column="1"
+                        TextColor="Red"
+                        FontSize="Micro" 
+                        Text="{Binding Source={x:Reference Email}, Path=ErrorMessage}"
+                        IsVisible="{Binding Source={x:Reference Email}, Path=ShowError}">
                     </Label>
-                    
+
                     <Image
-                        Grid.Row="3"
+                        Grid.Row="6"
                         Grid.Column="0"
                         HorizontalOptions="Center"
                         VerticalOptions="Center"
                         Scale="0.7"
                         Source="phone.png">
                     </Image>
-                    <Entry
-                        Grid.Row="3"
+                    <PQ:PQEntry
+                        Grid.Row="6"
                         Grid.Column="1"
                         Keyboard="Telephone"
                         Placeholder="Celular"
-                        Text="{Binding CellPhone}">
-                    </Entry>
+                        Text="{Binding CellPhone}"
+                        x:Name="CellPhone">
+                    </PQ:PQEntry>
+                    <Label 
+                         Grid.Row="7"
+                        Grid.Column="1"
+                        TextColor="Red"
+                        FontSize="Micro" 
+                        Text="{Binding Source={x:Reference CellPhone}, Path=ErrorMessage}"
+                        IsVisible="{Binding Source={x:Reference CellPhone}, Path=ShowError}">
+                    </Label>
 
                     <Image
-                        Grid.Row="4"
+                        Grid.Row="8"
                         Grid.Column="0"
                         HorizontalOptions="Center"
                         VerticalOptions="Center"
@@ -162,7 +209,7 @@
                         Source="calendar.png">
                     </Image>
                     <DatePicker 
-                        Grid.Row="4"
+                        Grid.Row="8"
                         Grid.Column="1"
                         Date="{Binding Birthdate, Mode=OneWay}"
                         MinimumDate="{Binding MinBirthdate}"
@@ -171,57 +218,83 @@
                     </DatePicker>
 
                     <Image
-                        Grid.Row="5"
+                        Grid.Row="9"
                         Grid.Column="0"
                         HorizontalOptions="Center"
                         VerticalOptions="Center"
                         Scale="0.7"
                         Source="gender.png">
                     </Image>
-                    <Picker
-                        Grid.Row="5"
+                    <PQ:PQPicker
+                        Grid.Row="9"
                         Grid.Column="1"
-                        SelectedIndex="{Binding Gender, Mode=OneWayToSource}"
+                        SelectedItem="{Binding Gender, Mode=OneWayToSource}"
                         Title="Género"
-                        x:Name="GenderPicker">
-                        <Picker.Items>
+                        x:Name="Gender">
+                        <PQ:PQPicker.Items>
                             <x:String>Femenino</x:String>
                             <x:String>Masculino</x:String>
                             <x:String>Otro</x:String>
-                        </Picker.Items>
-                    </Picker>
+                        </PQ:PQPicker.Items>
+                    </PQ:PQPicker>
+                    <Label 
+                        Grid.Row="10"
+                        Grid.Column="1"
+                        TextColor="Red"
+                        FontSize="Micro" 
+                        Text="{Binding Source={x:Reference Gender}, Path=ErrorMessage}"
+                        IsVisible="{Binding Source={x:Reference Gender}, Path=ShowError}">
+                    </Label>
 
                     <Image
-                        Grid.Row="6"
+                        Grid.Row="11"
                         Grid.Column="0"
                         HorizontalOptions="Center"
                         VerticalOptions="Center"
                         Scale="0.7"
                         Source="lock.png">
                     </Image>
-                    <Entry
-                        Grid.Row="6"
+                    <PQ:PQEntry
+                        Grid.Row="11"
                         Grid.Column="1"
                         IsPassword="True"
                         Placeholder="Contraseña"
-                        Text="{Binding Password, Mode=TwoWay}">
-                    </Entry>
+                        Text="{Binding Password, Mode=TwoWay}"
+                        x:Name="Password">
+                    </PQ:PQEntry>
+                    <Label 
+                        Grid.Row="12"
+                        Grid.Column="1"
+                        TextColor="Red"
+                        FontSize="Micro" 
+                        Text="{Binding Source={x:Reference Password}, Path=ErrorMessage}"
+                        IsVisible="{Binding Source={x:Reference Password}, Path=ShowError}">
+                    </Label>
 
                     <Image
-                        Grid.Row="7"
+                        Grid.Row="13"
                         Grid.Column="0"
                         HorizontalOptions="Center"
                         VerticalOptions="Center"
                         Scale="0.7"
                         Source="lock.png">
                     </Image>
-                    <Entry
-                        Grid.Row="7"
+                    <PQ:PQEntry
+                        Grid.Row="13"
                         Grid.Column="1"
                         IsPassword="True"
                         Placeholder="Confirmar Contraseña"
-                        Text="{Binding ConfirmPassword, Mode=TwoWay}">
-                    </Entry>
+                        Text="{Binding ConfirmPassword, Mode=TwoWay}"
+                        x:Name="ConfirmPassword">
+                    </PQ:PQEntry>
+                    <Label 
+                        Grid.Row="14"
+                        Grid.Column="1"
+                        TextColor="Red"
+                        FontSize="Micro" 
+                        Text="{Binding Source={x:Reference ConfirmPassword}, Path=ErrorMessage}"
+                        IsVisible="{Binding Source={x:Reference ConfirmPassword}, Path=ShowError}">
+                    </Label>
                 </Grid>
 
                 <Button

@@ -2,9 +2,12 @@
 namespace Visum.ViewModels
 {
     using GalaSoft.MvvmLight.Command;
+    using Helpers;
+    using Interfaces;
+    using Models;
     using Services;
-    using System;
     using System.Windows.Input;
+    using Views;
     using Xamarin.Forms;
 
     public class HomeViewModel : BaseViewModel
@@ -63,10 +66,14 @@ namespace Visum.ViewModels
         #region Constructors
         public HomeViewModel()
         {
-            this.apiService = new ApiService();
+            this.Initialize();
+        }
 
-            this.ImageFilters = "arrow_drop_down.png";
-            this.DistanceFilter = 5;
+        public HomeViewModel(string Token)
+        {
+            this.Initialize();
+
+            this.ValidateToken(Token);
         }
         #endregion
 
@@ -133,6 +140,71 @@ namespace Visum.ViewModels
                 this.ImageFilters = "arrow_drop_up.png";
 
             this.IsShowingFilters = !this.IsShowingFilters;
+        }
+        #endregion
+
+        #region Methods
+        private void Initialize()
+        {
+            this.apiService = new ApiService();
+
+            this.ImageFilters = "arrow_drop_down.png";
+            this.DistanceFilter = 5;
+        }
+
+        private async void ValidateToken(string Token)
+        {
+            //DependencyService.Get<ILoadingPageIndicator>().InitLoadingPage();
+            //DependencyService.Get<ILoadingPageIndicator>().ShowLoadingPage();
+
+            var connection = await this.apiService.CheckConnection();
+
+            if (!connection.IsSuccess)
+            {
+                //DependencyService.Get<ILoadingPageIndicator>().HideLoadingPage();
+
+                await Application.Current.MainPage.DisplayAlert(
+                    "Error",
+                    connection.Message,
+                    "Aceptar");
+
+                MainViewModel.GetInstance().Token = Settings.Token;
+
+                return;
+            }
+
+            var response = await this.apiService.ValidateUserToken<LoginResponse>(
+                "https://pacific-taiga-76447.herokuapp.com",
+                "/usuarios",
+                "/me",
+                Token);
+        
+            //DependencyService.Get<ILoadingPageIndicator>().HideLoadingPage();
+
+            if (!response.IsSuccess)
+            {
+                await Application.Current.MainPage.DisplayAlert(
+                    "Error",
+                    response.Message,
+                    "Aceptar");
+
+                MainViewModel.GetInstance().Token = Settings.Token;
+
+                return;
+            }
+
+            var loginResponse = (LoginResponse)response.Result;
+
+            if (loginResponse.Complete && !loginResponse.Error)
+            {
+                MainViewModel.GetInstance().Token = Settings.Token;
+            }
+            else
+            {
+                Settings.Token = string.Empty;
+
+                Application.Current.MainPage = new NavigationPage(new LoginPage());
+            }
         }
         #endregion
     }

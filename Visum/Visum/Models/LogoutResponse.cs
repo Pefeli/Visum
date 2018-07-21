@@ -2,7 +2,7 @@
 {
     using Newtonsoft.Json;
 
-    public class LoginResponse
+    public class LogoutResponse
     {
         [JsonProperty(PropertyName = "completada")]
         public bool Complete { get; set; }
@@ -12,8 +12,5 @@
 
         [JsonProperty(PropertyName = "mensaje")]
         public string Message { get; set; }
-
-        [JsonProperty(PropertyName = "objeto")]
-        public User User { get; set; }
     }
 }

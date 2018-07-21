@@ -53,6 +53,8 @@
                             HorizontalOptions="FillAndExpand"
                             Maximum="500"
                             Minimum="5"
+                            MaximumTrackColor="DarkGray"
+                            MinimumTrackColor="Gray"
                             Value="{Binding DistanceFilter, Mode=TwoWay}">
                         </Slider>
                         <Image

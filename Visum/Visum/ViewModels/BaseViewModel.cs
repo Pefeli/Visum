@@ -1,10 +1,11 @@
 ﻿namespace Visum.ViewModels
 {
+    using PQXamarin.Base;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
 
-    public class BaseViewModel : INotifyPropertyChanged
+    public class BaseViewModel : ValidationBase, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

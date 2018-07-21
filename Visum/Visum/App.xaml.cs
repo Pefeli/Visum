@@ -1,4 +1,5 @@
-using System;
+using Visum.Helpers;
+using Visum.ViewModels;
 using Visum.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -8,14 +9,33 @@ namespace Visum
 {
 	public partial class App : Application
 	{
-		public App ()
+        #region Properties
+        public static NavigationPage Navigator
+        {
+            get;
+            internal set;
+        }
+        #endregion
+
+        #region Constructor
+        public App ()
 		{
 			InitializeComponent();
 
-			MainPage = new NavigationPage(new LoginPage());
+            if (string.IsNullOrEmpty(Settings.Token))
+            {
+			    MainPage = new NavigationPage(new LoginPage());
+            }
+            else
+            {
+                MainViewModel.GetInstance().Home = new HomeViewModel(Settings.Token);
+                MainPage = new MasterPage();
+            }
 		}
+        #endregion
 
-		protected override void OnStart ()
+        #region Methods
+        protected override void OnStart ()
 		{
 			// Handle when your app starts
 		}
@@ -29,5 +49,6 @@ namespace Visum
 		{
 			// Handle when your app resumes
 		}
-	}
+        #endregion
+    }
 }

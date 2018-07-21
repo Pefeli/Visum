@@ -73,6 +73,109 @@
             }
         }
 
+        public async Task<Response> Logout<T>(string urlBase, string servicePrefix, string controller, string token)
+        {
+            try
+            {
+                var client = new HttpClient();
+
+                client.DefaultRequestHeaders.Add("x-auth", token);
+
+                client.BaseAddress = new Uri(urlBase);
+
+                var url = string.Format("{0}{1}", servicePrefix, controller);
+                var response = await client.DeleteAsync(url);
+                var resultJSON = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<T>(resultJSON);
+
+                return new Response
+                {
+                    IsSuccess = true,
+                    Message = "Logout OK",
+                    Result = result,
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = ex.Message,
+                };
+            }
+        }
+
+        public async Task<Response> ValidateUserToken<T>(string urlBase, string servicePrefix, string controller, string token)
+        {
+            try
+            {
+                var client = new HttpClient();
+
+                client.DefaultRequestHeaders.Add("x-auth", token);
+
+                client.BaseAddress = new Uri(urlBase);
+
+                var url = string.Format("{0}{1}", servicePrefix, controller);
+                var response = await client.GetAsync(url);
+                var resultJSON = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<T>(resultJSON);
+
+                return new Response
+                {
+                    IsSuccess = true,
+                    Message = "Validate OK",
+                    Result = result,
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = ex.Message,
+                };
+            }
+        }
+
+        public async Task<Response> Post<T, M>(string urlBase, string servicePrefix, string controller, M model)
+        {
+            try
+            {
+                var request = JsonConvert.SerializeObject(model);
+                var content = new StringContent(request, Encoding.UTF8, "application/json");
+                var client = new HttpClient();
+
+                client.BaseAddress = new Uri(urlBase);
+
+                var url = string.Format("{0}{1}", servicePrefix, controller);
+                var response = await client.PostAsync(url, content);
+                var resultJSON = await response.Content.ReadAsStringAsync();
+                var newRecord = JsonConvert.DeserializeObject<T>(resultJSON);
+
+                return new Response
+                {
+                    IsSuccess = true,
+                    Message = "Record added OK",
+                    Result = newRecord,
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = ex.Message,
+                };
+            }
+        }
+
+
+
+
+
+
+
+
         public async Task<Response> Get<T>(string urlBase, string servicePrefix, string controller, string tokenType, string accessToken, int id)
         {
             try
@@ -260,48 +363,6 @@
                     return error;
                 }
 
-                var newRecord = JsonConvert.DeserializeObject<T>(result);
-
-                return new Response
-                {
-                    IsSuccess = true,
-                    Message = "Record added OK",
-                    Result = newRecord,
-                };
-            }
-            catch (Exception ex)
-            {
-                return new Response
-                {
-                    IsSuccess = false,
-                    Message = ex.Message,
-                };
-            }
-        }
-
-        public async Task<Response> Post<T>(string urlBase, string servicePrefix, string controller, T model)
-        {
-            try
-            {
-                var request = JsonConvert.SerializeObject(model);
-                var content = new StringContent(request, Encoding.UTF8, "application/json");
-                var client = new HttpClient();
-
-                client.BaseAddress = new Uri(urlBase);
-
-                var url = string.Format("{0}{1}", servicePrefix, controller);
-                var response = await client.PostAsync(url, content);
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    return new Response
-                    {
-                        IsSuccess = false,
-                        Message = response.StatusCode.ToString(),
-                    };
-                }
-
-                var result = await response.Content.ReadAsStringAsync();
                 var newRecord = JsonConvert.DeserializeObject<T>(result);
 
                 return new Response
