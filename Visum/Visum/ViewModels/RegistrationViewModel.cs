@@ -142,9 +142,7 @@
             }
 
             DependencyService.Get<ILoadingPageIndicator>().InitLoadingPage();
-            DependencyService.Get<ILoadingPageIndicator>().ShowLoadingPage();
-
-            //Loading
+            DependencyService.Get<ILoadingPageIndicator>().ShowLoadingPage();            
 
             var connection = await this.apiService.CheckConnection();
 
@@ -160,7 +158,7 @@
                 return;
             }
 
-            RegistrationRequest RegistrationRequest = new RegistrationRequest
+            User RegistrationRequest = new User
             {
                 Name = this.Name,
                 LastName = this.LastName,
@@ -173,8 +171,8 @@
                 Type = 1
             };
 
-            var response = await this.apiService.Post<RegistrationResponse, RegistrationRequest>(
-                "https://pacific-taiga-76447.herokuapp.com",
+            var response = await this.apiService.Post<UserResponse, User>(
+                Application.Current.Resources["APIVisum"].ToString(),
                 "/usuarios",
                 "/",
                 RegistrationRequest);
@@ -191,7 +189,7 @@
                 return;
             }
 
-            var registrationResponse = (RegistrationResponse)response.Result;
+            var registrationResponse = (UserResponse)response.Result;
 
             if (!registrationResponse.Complete && !registrationResponse.Error)
             {

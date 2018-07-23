@@ -41,11 +41,11 @@
             };
         }
 
-        public async Task<Response> Login<T>(string urlBase, string servicePrefix, string controller, LoginRequest data)
+        public async Task<Response> Login<T, M>(string urlBase, string servicePrefix, string controller, M model)
         {
             try
             {
-                var request = JsonConvert.SerializeObject(data);
+                var request = JsonConvert.SerializeObject(model, new JsonSerializerSettings { DefaultValueHandling = DefaultValueHandling.Ignore });
                 var content = new StringContent(request, Encoding.UTF8, "application/json");
                 var client = new HttpClient();
 
@@ -105,7 +105,7 @@
             }
         }
 
-        public async Task<Response> ValidateUserToken<T>(string urlBase, string servicePrefix, string controller, string token)
+        public async Task<Response> ValidateUserDataByToken<T>(string urlBase, string servicePrefix, string controller, string token)
         {
             try
             {
@@ -123,7 +123,7 @@
                 return new Response
                 {
                     IsSuccess = true,
-                    Message = "Validate OK",
+                    Message = "Validation OK",
                     Result = result,
                 };
             }
@@ -141,7 +141,7 @@
         {
             try
             {
-                var request = JsonConvert.SerializeObject(model);
+                var request = JsonConvert.SerializeObject(model, new JsonSerializerSettings { DefaultValueHandling = DefaultValueHandling.Ignore });
                 var content = new StringContent(request, Encoding.UTF8, "application/json");
                 var client = new HttpClient();
 
@@ -169,7 +169,45 @@
             }
         }
 
+        public async Task<Response> Patch<T, M>(string urlBase, string servicePrefix, string controller, string token, string userId, M model)
+        {
+            try
+            {
+                var method = new HttpMethod("PATCH");
 
+                var url = urlBase + servicePrefix + controller + userId;
+
+                var request = JsonConvert.SerializeObject(model, new JsonSerializerSettings { DefaultValueHandling = DefaultValueHandling.Ignore });
+                var content = new StringContent(request, Encoding.UTF8, "application/json");
+                var client = new HttpClient();
+
+                var patch_request = new HttpRequestMessage(method, new Uri(url))
+                {
+                    Content = content
+                };
+
+                client.DefaultRequestHeaders.Add("x-auth", token);
+
+                var response = await client.SendAsync(patch_request);
+                var resultJSON = await response.Content.ReadAsStringAsync();
+                var updatedRecord = JsonConvert.DeserializeObject<T>(resultJSON);
+
+                return new Response
+                {
+                    IsSuccess = true,
+                    Message = "Update OK",
+                    Result = updatedRecord,
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = ex.Message,
+                };
+            }
+        }
 
 
 

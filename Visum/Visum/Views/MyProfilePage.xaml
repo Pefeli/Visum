@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:PQ="clr-namespace:PQXamarin.Controls;assembly=PQXamarin"
+    x:Class="Visum.Views.MyProfilePage"
+    BindingContext="{Binding Main, Source={StaticResource Locator}}"
+    Title="Mi Perfil">
+    <ContentPage.Content>
+        <ScrollView
+            BindingContext="{Binding MyProfile}"
+            Orientation="Vertical"
+            Margin="10, 10">
+            <StackLayout>
+
+                <Grid
+                    Margin="10, 0, 10, 20"
+                    RowSpacing="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition
+                            Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition
+                            Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Image
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Scale="0.7"
+                        Source="email.png">
+                    </Image>
+                    <PQ:PQEntry
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        IsEnabled="False"
+                        Keyboard="Email"
+                        Placeholder="Correo Electrónico"
+                        Text="{Binding Email}"
+                        x:Name="Email">
+                    </PQ:PQEntry>
+                    <Label 
+                         Grid.Row="1"
+                        Grid.Column="1"
+                        TextColor="Red"
+                        FontSize="Micro" 
+                        Text="{Binding Source={x:Reference Email}, Path=ErrorMessage}"
+                        IsVisible="{Binding Source={x:Reference Email}, Path=ShowError}">
+                    </Label>
+                    
+                    <Image
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Scale="0.7"
+                        Source="person.png">
+                    </Image>
+                    <PQ:PQEntry
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Placeholder="Nombres"
+                        Text="{Binding Name, Mode=TwoWay}"
+                        x:Name="Name">
+                    </PQ:PQEntry>
+                    <Label 
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        TextColor="Red" 
+                        FontSize="Micro" 
+                        Text="{Binding Source={x:Reference Name}, Path=ErrorMessage}"
+                        IsVisible="{Binding Source={x:Reference Name}, Path=ShowError}">
+                    </Label>
+
+                    <Image
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Scale="0.7"
+                        Source="person_outline.png">
+                    </Image>
+                    <PQ:PQEntry
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Placeholder="Apellidos"
+                        Text="{Binding LastName, Mode=TwoWay}"
+                        x:Name="LastName">
+                    </PQ:PQEntry>
+                    <Label 
+                        Grid.Row="5"
+                        Grid.Column="1"
+                        TextColor="Red" 
+                        FontSize="Micro" 
+                        Text="{Binding Source={x:Reference LastName}, Path=ErrorMessage}"
+                        IsVisible="{Binding Source={x:Reference LastName}, Path=ShowError}">
+                    </Label>
+
+                    <Image
+                        Grid.Row="6"
+                        Grid.Column="0"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Scale="0.7"
+                        Source="phone.png">
+                    </Image>
+                    <PQ:PQEntry
+                        Grid.Row="6"
+                        Grid.Column="1"
+                        Keyboard="Telephone"
+                        Placeholder="Celular"
+                        Text="{Binding CellPhone, Mode=TwoWay}"
+                        x:Name="CellPhone">
+                    </PQ:PQEntry>
+                    <Label 
+                         Grid.Row="7"
+                        Grid.Column="1"
+                        TextColor="Red"
+                        FontSize="Micro" 
+                        Text="{Binding Source={x:Reference CellPhone}, Path=ErrorMessage}"
+                        IsVisible="{Binding Source={x:Reference CellPhone}, Path=ShowError}">
+                    </Label>
+
+                    <Image
+                        Grid.Row="8"
+                        Grid.Column="0"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Scale="0.7"
+                        Source="calendar.png">
+                    </Image>
+                    <DatePicker 
+                        Grid.Row="8"
+                        Grid.Column="1"
+                        Date="{Binding Birthdate, Mode=TwoWay}"
+                        MinimumDate="{Binding MinBirthdate}"
+                        MaximumDate="{Binding MaxBirthdate}">
+                        <DatePicker.Format>MMM/dd/yyyy</DatePicker.Format>
+                    </DatePicker>
+
+                    <Image
+                        Grid.Row="9"
+                        Grid.Column="0"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Scale="0.7"
+                        Source="gender.png">
+                    </Image>
+                    <PQ:PQPicker
+                        Grid.Row="9"
+                        Grid.Column="1"
+                        SelectedItem="{Binding Gender, Mode=TwoWay}"
+                        Title="Género"
+                        x:Name="Gender">
+                        <PQ:PQPicker.Items>
+                            <x:String>Femenino</x:String>
+                            <x:String>Masculino</x:String>
+                            <x:String>Otro</x:String>
+                        </PQ:PQPicker.Items>
+                    </PQ:PQPicker>
+                    <Label 
+                        Grid.Row="10"
+                        Grid.Column="1"
+                        TextColor="Red"
+                        FontSize="Micro" 
+                        Text="{Binding Source={x:Reference Gender}, Path=ErrorMessage}"
+                        IsVisible="{Binding Source={x:Reference Gender}, Path=ShowError}">
+                    </Label>
+                </Grid>
+
+                <Button
+                    BackgroundColor="#5cb85c"
+                    Command="{Binding UpdateCommand}"
+                    Text="Actualizar"
+                    TextColor="White">
+                </Button>
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

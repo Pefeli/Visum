@@ -99,17 +99,17 @@
                 return;
             }
 
-            LoginRequest LoginAccess = new LoginRequest
+            User LoginRequest = new User
             {
                 Email = this.Email,
                 Password = this.Password
             };
 
-            var response = await this.apiService.Login<LoginResponse>(
-                "https://pacific-taiga-76447.herokuapp.com",
+            var response = await this.apiService.Login<UserResponse, User>(
+                Application.Current.Resources["APIVisum"].ToString(),
                 "/usuarios",
                 "/login",
-                LoginAccess);
+                LoginRequest);
 
             DependencyService.Get<ILoadingPageIndicator>().HideLoadingPage();
 
@@ -123,7 +123,7 @@
                 return;
             }
 
-            var loginResponse = (LoginResponse)response.Result;
+            var loginResponse = (UserResponse)response.Result;
 
             if (!loginResponse.Complete && !loginResponse.Error)
             {
@@ -152,9 +152,15 @@
             string Token = loginResponse.User.Tokens[loginResponse.User.Tokens.Count - 1].Value;
 
             MainViewModel.GetInstance().Token = Token;
+            MainViewModel.GetInstance().UserId = loginResponse.User.UserId;            
+            MainViewModel.GetInstance().Name = loginResponse.User.Name;
 
             if (this.IsRememberme)
+            {
                 Settings.Token = Token;
+                Settings.UserId = loginResponse.User.UserId;
+                Settings.Name = loginResponse.User.Name;
+            }
 
             MainViewModel.GetInstance().Home = new HomeViewModel();
             Application.Current.MainPage = new MasterPage();

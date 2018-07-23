@@ -2,7 +2,6 @@
 <ContentPage 
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Visum.Validations"
     xmlns:PQ="clr-namespace:PQXamarin.Controls;assembly=PQXamarin"
     x:Class="Visum.Views.RegistrationPage"
     BindingContext="{Binding Main, Source={StaticResource Locator}}"
@@ -211,7 +210,7 @@
                     <DatePicker 
                         Grid.Row="8"
                         Grid.Column="1"
-                        Date="{Binding Birthdate, Mode=OneWay}"
+                        Date="{Binding Birthdate}"
                         MinimumDate="{Binding MinBirthdate}"
                         MaximumDate="{Binding MaxBirthdate}">
                         <DatePicker.Format>MMM/dd/yyyy</DatePicker.Format>

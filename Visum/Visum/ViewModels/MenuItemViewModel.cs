@@ -65,8 +65,8 @@
 
                 string Token = MainViewModel.GetInstance().Token;
 
-                var response = await apiService.Logout<LogoutResponse>(
-                    "https://pacific-taiga-76447.herokuapp.com",
+                var response = await apiService.Logout<BasicResponse>(
+                    Application.Current.Resources["APIVisum"].ToString(),
                     "/usuarios",
                     "/me/token",
                     Token);
@@ -83,7 +83,7 @@
                     return;
                 }
 
-                var logoutResponse = (LogoutResponse)response.Result;
+                var logoutResponse = (BasicResponse)response.Result;
 
                 if (!logoutResponse.Complete && !logoutResponse.Error)
                 {
@@ -108,7 +108,23 @@
                 MainViewModel.GetInstance().Token = string.Empty;
                 Settings.Token = string.Empty;
 
-                Application.Current.MainPage = new LoginPage();
+                MainViewModel.GetInstance().UserId = string.Empty;
+                Settings.UserId = string.Empty;
+
+                MainViewModel.GetInstance().Name = string.Empty;
+                Settings.Name = string.Empty;
+
+                Application.Current.MainPage = new NavigationPage(new LoginPage());
+            }
+            else if (this.PageName == "MyProfilePage")
+            {
+                MainViewModel.GetInstance().MyProfile = new MyProfileViewModel();
+                await App.Navigator.PushAsync(new MyProfilePage());
+            }
+            else if (this.PageName == "ChangePasswordPage")
+            {
+                MainViewModel.GetInstance().ChangePassword = new ChangePasswordViewModel();
+                await App.Navigator.PushAsync(new ChangePasswordPage());
             }
         }
         #endregion

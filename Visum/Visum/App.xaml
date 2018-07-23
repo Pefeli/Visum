@@ -8,6 +8,8 @@
 
         <ResourceDictionary>
             <infra:InstanceLocator x:Key="Locator" />
+
+            <x:String x:Key="APIVisum">https://pacific-taiga-76447.herokuapp.com</x:String>
         </ResourceDictionary>
         
 	</Application.Resources>

@@ -13,6 +13,23 @@
                 Source="Visum_Login.png"
                 Scale="0.5">
             </Image>
+            
+            <Label
+                FontAttributes="Bold"
+                FontSize="Medium"
+                HorizontalOptions="Center"
+                Margin="0, 0, 0, 5"
+                Text="{Binding Name}"
+                TextColor="Black">
+            </Label>
+
+            <BoxView
+                Color="LightGray"
+                HeightRequest="1"
+                HorizontalOptions="Fill"
+                VerticalOptions="Center">
+            </BoxView>
+            
             <ListView
                 BackgroundColor="White"
                 HasUnevenRows="True"

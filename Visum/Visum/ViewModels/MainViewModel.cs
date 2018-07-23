@@ -4,8 +4,12 @@ namespace Visum.ViewModels
     using System;
     using System.Collections.ObjectModel;
 
-    public class MainViewModel
+    public class MainViewModel : BaseViewModel
     {
+        #region Attributes
+        private string name;
+        #endregion
+
         #region Properties
         public ObservableCollection<MenuItemViewModel> Menu
         {
@@ -17,6 +21,18 @@ namespace Visum.ViewModels
         {
             get;
             set;
+        }
+
+        public string UserId
+        {
+            get;
+            set;
+        }
+
+        public string Name
+        {
+            get { return this.name; }
+            set { SetValue(ref this.name, value); }
         }
         #endregion
 
@@ -34,6 +50,18 @@ namespace Visum.ViewModels
         }
 
         public RegistrationViewModel Registration
+        {
+            get;
+            set;
+        }
+
+        public MyProfileViewModel MyProfile
+        {
+            get;
+            set;
+        }
+
+        public ChangePasswordViewModel ChangePassword
         {
             get;
             set;
@@ -61,14 +89,7 @@ namespace Visum.ViewModels
                 Icon = "person_black.png",
                 PageName = "MyProfilePage",
                 Title = "Mi Pefil"
-            });
-
-            this.Menu.Add(new MenuItemViewModel
-            {
-                Icon = "settings_black.png",
-                PageName = "SettingsPage",
-                Title = "Configuración"
-            });
+            });            
 
             this.Menu.Add(new MenuItemViewModel
             {
@@ -82,6 +103,13 @@ namespace Visum.ViewModels
                 Icon = "help_black.png",
                 PageName = "HelpPage",
                 Title = "Ayuda"
+            });
+
+            this.Menu.Add(new MenuItemViewModel
+            {
+                Icon = "settings_black.png",
+                PageName = "SettingsPage",
+                Title = "Configuración"
             });
 
             this.Menu.Add(new MenuItemViewModel

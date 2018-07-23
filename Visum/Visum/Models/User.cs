@@ -19,10 +19,10 @@ namespace Visum.Models
         public List<Token> Tokens { get; set; }
 
         [JsonProperty(PropertyName = "nombres")]
-        public string Names { get; set; }
+        public string Name { get; set; }
 
         [JsonProperty(PropertyName = "apellidos")]
-        public string Lastname { get; set; }
+        public string LastName { get; set; }
 
         [JsonProperty(PropertyName = "correo")]
         public string Email { get; set; }
@@ -38,5 +38,8 @@ namespace Visum.Models
 
         [JsonProperty(PropertyName = "fechaRegistro")]
         public string RegistrationDate { get; set; }
+
+        [JsonProperty(PropertyName = "clave")]
+        public string Password { get; set; }
     }
 }

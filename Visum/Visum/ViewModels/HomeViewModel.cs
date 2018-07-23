@@ -154,33 +154,26 @@ namespace Visum.ViewModels
 
         private async void ValidateToken(string Token)
         {
-            //DependencyService.Get<ILoadingPageIndicator>().InitLoadingPage();
-            //DependencyService.Get<ILoadingPageIndicator>().ShowLoadingPage();
+            MainViewModel.GetInstance().Token = Token;
 
             var connection = await this.apiService.CheckConnection();
 
             if (!connection.IsSuccess)
             {
-                //DependencyService.Get<ILoadingPageIndicator>().HideLoadingPage();
-
                 await Application.Current.MainPage.DisplayAlert(
                     "Error",
                     connection.Message,
                     "Aceptar");
 
-                MainViewModel.GetInstance().Token = Settings.Token;
-
                 return;
             }
 
-            var response = await this.apiService.ValidateUserToken<LoginResponse>(
-                "https://pacific-taiga-76447.herokuapp.com",
+            var response = await this.apiService.ValidateUserDataByToken<UserResponse>(
+                Application.Current.Resources["APIVisum"].ToString(),
                 "/usuarios",
                 "/me",
                 Token);
         
-            //DependencyService.Get<ILoadingPageIndicator>().HideLoadingPage();
-
             if (!response.IsSuccess)
             {
                 await Application.Current.MainPage.DisplayAlert(
@@ -188,20 +181,29 @@ namespace Visum.ViewModels
                     response.Message,
                     "Aceptar");
 
-                MainViewModel.GetInstance().Token = Settings.Token;
-
                 return;
             }
 
-            var loginResponse = (LoginResponse)response.Result;
+            var validationResponse = (UserResponse)response.Result;
 
-            if (loginResponse.Complete && !loginResponse.Error)
+            if (validationResponse.Complete && !validationResponse.Error)
             {
-                MainViewModel.GetInstance().Token = Settings.Token;
+                MainViewModel.GetInstance().Name = validationResponse.User.Name;
+                Settings.Name = validationResponse.User.Name;
+
+                MainViewModel.GetInstance().UserId = validationResponse.User.UserId;
+                Settings.UserId = validationResponse.User.UserId;
             }
             else
             {
+                MainViewModel.GetInstance().Token = string.Empty;
                 Settings.Token = string.Empty;
+
+                MainViewModel.GetInstance().UserId = string.Empty;
+                Settings.UserId = string.Empty;
+
+                MainViewModel.GetInstance().Name = string.Empty;
+                Settings.Name = string.Empty;
 
                 Application.Current.MainPage = new NavigationPage(new LoginPage());
             }

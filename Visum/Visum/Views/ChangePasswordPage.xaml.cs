@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace Visum.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class RegisterPage : ContentPage
+	public partial class ChangePasswordPage : ContentPage
 	{
-		public RegisterPage ()
+		public ChangePasswordPage ()
 		{
 			InitializeComponent ();
 		}

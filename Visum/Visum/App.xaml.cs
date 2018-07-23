@@ -22,7 +22,7 @@ namespace Visum
 		{
 			InitializeComponent();
 
-            if (string.IsNullOrEmpty(Settings.Token))
+            if (string.IsNullOrEmpty(Settings.Token) || string.IsNullOrEmpty(Settings.UserId))
             {
 			    MainPage = new NavigationPage(new LoginPage());
             }
